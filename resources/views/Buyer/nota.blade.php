@@ -11,7 +11,12 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Nota List</h4>
+                <div class="row justify-content-end">
+                    <h2 class="card-title">Nota List</h2>
+                    <div class="col-1 me-5">
+                        <input type="date" class="form-control flatpickr-no-config" placeholder="Select date">
+                    </div>
+                </div>
             </div>
             <div class="card-body">
   <section class="section">

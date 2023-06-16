@@ -25,3 +25,11 @@ Route::get('/order_page', function () {
 Route::get('/nota_page', function () {
     return view('buyer.nota');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

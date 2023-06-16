@@ -2,6 +2,24 @@
 
 
 @section('content')
+<div class="row justify-content-start mb-3">
+    <div class="col-lg-9 col-md-12">
+        <h3>Category</h3>
+        <div class="row">
+            <div class="col-8">
+                <button class="btn btn-outline-primary m-2"><span class="m-2">Drink</span></button>
+                <button class="btn btn-outline-primary m-2"><span class="m-2">Food</span></button>
+                <button class="btn btn-outline-primary m-2"><span class="m-2">Dessert</span></button>
+            </div>
+            <div class="col-4">
+                <input type="text" id="searchInput" placeholder="Search Menu" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        
+    </div>
+</div>
         <div class="row">
             <div class="col-xl-3 col-md-6 col-sm-12">
                 <div class="card">

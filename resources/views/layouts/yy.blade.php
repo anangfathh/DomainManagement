@@ -16,14 +16,17 @@
 <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/pages/simple-datatables.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker.min.css">
+
 </head>
 
 <body>
     <div id="app">
-        <div id="main" class='layout-horizontal'>
+        @include('components.sidebar')
+        <div id="main" class='layout-navbar'>
+            <header class='mb-3'>
                 <!-- Navbar content goes here -->
-                @include('components.buyer-navbar')
+                @include('components.navbar')
+            </header>
             <div id="main-content">
                 <!-- Content goes here -->
                 @yield('content')
@@ -34,15 +37,12 @@
     </div>
     <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/horizontal-layout.js') }}"></script>
     
 <!-- Need: Apexcharts -->
-
 <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
 <script src="{{ asset('assets/js/pages/simple-datatables.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 </body>
 
