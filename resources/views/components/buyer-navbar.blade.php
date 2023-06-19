@@ -17,15 +17,25 @@
                                         <img src="assets/images/faces/1.jpg" alt="Avatar">
                                     </div>
                                     <div class="text">
-                                        <h6 class="user-dropdown-name">John Ducky</h6>
-                                        <p class="user-dropdown-status text-sm text-muted">Member</p>
+                                        <h6 class="user-dropdown-name">{{ Auth::user()->name }}</h6>
+                                        <p class="user-dropdown-status text-sm text-muted">{{ ucfirst(Auth::user()->role) }}</p>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
                                     <li><a class="dropdown-item" href="#">My Account</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="auth-login.html">Logout</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i
+                                                class="icon-mid bi bi-box-arrow-left me-2"></i>
+                                        {{ __('Logout') }}
+                                        </a>
+                                    </li>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </ul>
                             </div>
 
