@@ -1,159 +1,76 @@
 @extends('layouts.buyer')
 
-
 @section('content')
 <div class="row justify-content-start mb-3">
-    <div class="col-lg-9 col-md-12">
-        <h3>Category</h3>
-        <div class="row">
-            <div class="col-8">
-                <button class="btn btn-outline-primary m-2"><span class="m-2">Drink</span></button>
-                <button class="btn btn-outline-primary m-2"><span class="m-2">Food</span></button>
-                <button class="btn btn-outline-primary m-2"><span class="m-2">Dessert</span></button>
+    <!-- Category buttons and search input -->
+</div>
+<div class="row">
+    <!-- Display menu cards -->
+    @foreach ($menus as $menu)
+    <div class="col-xl-3 col-md-6 col-sm-12">
+        <div class="card">
+            <!-- Card content -->
+            <div class="card-content">
+                <div class="card-body">
+                    <h4 class="card-title">{{ $menu->name }}</h4>
+                </div>
+                <img class="img-fluid w-100" src="{{ asset('storage/' . $menu->image) }}" alt="Card image cap" height="100px">
             </div>
-            <div class="col-4">
-                <input type="text" id="searchInput" placeholder="Search Menu" class="form-control">
+            <!-- Card footer -->
+            <div class="card-footer d-flex justify-content-between">
+                <span>Rp{{ $menu->price }}</span>
+                <div class="input-group justify-content-end">
+                    <span class="input-group-btn">
+                        <button class="btn btn-danger btn-minus" type="button" data-product-id="{{ $menu->id }}">-</button>
+                    </span>
+                    <input id="input-number-{{ $menu->id }}" type="number" class="form-control" value="0">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success btn-plus" type="button" data-product-id="{{ $menu->id }}">+</button>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-3">
-        
+    @endforeach
+
+    <!-- List order card -->
+    <div class="col-xl-3 col-md-6 col-sm-12">
+        <div class="card">
+            <!-- Card content -->
+            <div class="card-content">
+                <div class="card-body">
+                    <h4 class="card-title">List Order</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <!-- Table with outer spacing -->
+                        <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Menu</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-table-body">
+                                    <!-- Dynamically populate order items here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Total Price -->
+                        <div class="mt-3">
+                            <label for="total-price">Total Price:</label>
+                            <span id="total-price">Rp0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer d-flex justify-content-between">
+                <button class="btn btn-success">Order</button>
+            </div>
+        </div>
     </div>
 </div>
-        <div class="row">
-            <div class="col-xl-3 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Pisang Radja</h4>
-                        </div>
-                        <img class="img-fluid w-100" src="assets/images/samples/banana.jpg" alt="Card image cap">
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Card Footer</span>
-                        <button class="btn btn-light-primary">Read More</button>
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Card With Header And Footer</h4>
-                            <p class="card-text">
-                                Gummies bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll. Toffee
-                                sugar plum sugar plum jelly-o jujubes bonbon dessert carrot cake.
-                            </p>
-                        </div>
-                        <img class="img-fluid w-100" src="assets/images/samples/banana.jpg" alt="Card image cap">
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Card Footer</span>
-                        <button class="btn btn-light-primary">Read More</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-xl-3 col-md-6 col-sm-12">                
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Card With Header And Footer</h4>
-                        </div>
-                        <img class="img-fluid w-100" src="assets/images/samples/banana.jpg" alt="Card image cap">
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Rp30.000,00</span>
-                        <button class="btn btn-light-primary">Read More</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 col-sm-12">                
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">Card With Header And Footer</h4>
-                        </div>
-                        <img class="img-fluid w-100" src="assets/images/samples/banana.jpg" alt="Card image cap">
-                    </div>
-                    <div class="card-footer d-flex">
-                            <span class="justify-content-start">Card Footer</span>
-                            <div class="input-group justify-content-end">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger btn-minus" type="button">-</button>
-                                    </span>
-                                    <input type="number" class="form-control" value="0">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-plus" type="button">+</button>
-                                    </span>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 col-sm-12">                
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title">List Order</h4>
-                        </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <!-- Table with outer spacing -->
-                            <div class="table-responsive">
-                                <table class="table table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Menu</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-bold-500">Michael Right</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">UI/UX</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Morgan Vanblum</td>
-                                            <td>$13/hr</td>
-                                            <td class="text-bold-500">Graphic concepts</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Tiffani Blogz</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Ashley Boul</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-bold-500">Mikkey Mice</td>
-                                            <td>$15/hr</td>
-                                            <td class="text-bold-500">Animation</td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <button class="btn btn-success">Order</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
 @endsection

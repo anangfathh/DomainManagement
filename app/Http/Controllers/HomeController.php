@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Menu;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,16 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function employeeHome()
+    {
+        return view('Employee.index');
+    }
+
+    public function buyerHome()
+    {
+        $menus = Menu::all();
+        return view('Buyer.index', compact('menus'));
     }
 }
