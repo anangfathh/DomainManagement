@@ -21,9 +21,19 @@
                             <input type="number" name="price" class="form-control" id="price" required>
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="category">Category</label>
                             <input type="text" name="category" class="form-control" id="category" required>
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label  id="category" for="inputGroupSelect01">Category</label>
+                            <select class="form-select" name="category" id="category" required> 
+                                <option selected>Choose...</option>
+                                <option value="Drink">Drink</option>
+                                <option value="Food">Food</option>
+                                <option value="Dessert">Dessert</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

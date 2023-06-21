@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Menu\MenuController;
+use App\Http\Controllers\Order\OrderController;
+use App\Models\Order;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +35,17 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+
 
 Route::middleware(['auth'])->group(function () {
     // Menyediakan akses hanya untuk pengguna yang sudah terotentikasi
 
     Route::get('/employee_home', [HomeController::class, 'employeeHome'])->name('employee.home');
     Route::get('/buyer_home', [HomeController::class, 'buyerHome'])->name('buyer.home');
+    Route::get('/buyer/orders', [OrderController::class, 'showAllOrders'])->name('buyer.orders');
+    Route::get('/pending-orders', [OrderController::class, 'showPendingOrdersWithUserInfo'])->name('orders.pending');
+
 
 
     Route::prefix('menu')->group(function () {

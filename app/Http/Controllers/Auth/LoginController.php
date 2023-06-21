@@ -50,7 +50,7 @@ class LoginController extends Controller
             if (auth()->user()->role == 'buyer') {
                 return redirect()->route('buyer.home');
             } else {
-                return redirect()->route('employee.home');
+                return redirect()->route('orders.pending');
             }
         } else {
             return redirect()->route('login')->with('error', 'input proper email or password');

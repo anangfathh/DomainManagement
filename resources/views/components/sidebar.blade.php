@@ -21,8 +21,8 @@
             <li class="sidebar-title">Menu</li>
             
             <li
-                class="sidebar-item {{ request()->routeIs('employee.home') ? 'active' : '' }}">
-                <a href="{{ route('employee.home') }}" class='sidebar-link'>
+                class="sidebar-item {{ request()->routeIs('orders.pending') ? 'active' : '' }}">
+                <a href="{{ route('orders.pending') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Order List</span>
                 </a>

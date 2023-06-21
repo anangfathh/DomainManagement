@@ -70,4 +70,107 @@ $(document).ready(function () {
         });
         $("#total-price").text("Rp" + totalPrice);
     }
+
+    // Process order when the order button is clicked
+    $("#order-btn").click(function () {
+        var orderItems = [];
+        $("#order-table-body tr").each(function () {
+            var productId = $(this).data("product-id");
+            var quantity = parseInt($(this).find("td:nth-child(2)").text());
+            orderItems.push({ menu_id: productId, quantity: quantity });
+        });
+
+        if (orderItems.length > 0) {
+            // Ambil token CSRF
+            // var csrfToken = document
+            //     .querySelector('meta[name="csrf-token"]')
+            //     .getAttribute("content");
+
+            $.ajax({
+                url: "/order",
+                // Ubah sesuai dengan URL rute 'order.store' yang valid
+                type: "POST",
+                data: { order_items: orderItems },
+                dataType: "json",
+                // contentType: "application/json",
+                // beforeSend: function (xhr) {
+                //     // Setel header CSRF token sebelum permintaan dikirim
+                //     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+                // },
+                success: function (response) {
+                    alert(response.message); // Menampilkan alert dengan pesan sukses
+                    location.reload(); // Melakukan reload halaman
+                    // Handle success response here
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Handle error response here
+                },
+            });
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    var categoryButtons = document.querySelectorAll(".btn-outline-primary");
+
+    categoryButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            var category = button.getAttribute("data-category");
+
+            var cards = document.querySelectorAll(".card-container");
+            cards.forEach(function (card) {
+                if (category === "all" || card.classList.contains(category)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+
+    searchInput.addEventListener("input", function () {
+        var searchValue = searchInput.value.toLowerCase().trim();
+
+        var cards = document.querySelectorAll(".card-container");
+        cards.forEach(function (card) {
+            var menuName = card
+                .querySelector(".card-title")
+                .textContent.toLowerCase();
+            if (menuName.includes(searchValue)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const datePicker = document.getElementById("datePicker");
+    const table = document.getElementById("table1");
+
+    flatpickr(datePicker, {
+        dateFormat: "l, d-m-Y",
+        onChange: function (selectedDates, dateStr) {
+            const selectedDate = selectedDates[0];
+            const rows = table
+                .getElementsByTagName("tbody")[0]
+                .getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                const dateCell = rows[i].getElementsByTagName("td")[2];
+                const orderDate = dateCell.textContent.trim();
+
+                if (
+                    !selectedDate ||
+                    orderDate === selectedDate.toLocaleDateString("en-US")
+                ) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        },
+    });
 });
