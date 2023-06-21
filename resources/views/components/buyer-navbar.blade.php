@@ -9,7 +9,7 @@
 
 
                             <div>
-                                <a class="btn btn-primary" href="/nota_page"><i class="bi bi-cart-check-fill"></i></a>
+                                <a class="btn btn-primary" href="{{ route('buyer.orders') }}"><i class="bi bi-cart-check-fill"></i></a>
                             </div>
                             <div class="dropdown">
                                 <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">

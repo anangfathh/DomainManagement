@@ -11,7 +11,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Price</th>
                             <th>Category</th>

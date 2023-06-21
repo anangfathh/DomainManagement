@@ -9,7 +9,10 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
-        'id',
-    ];
+    protected $fillable = ['name', 'price', 'image', 'category'];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
