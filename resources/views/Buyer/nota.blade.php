@@ -38,10 +38,10 @@
                                                 <td>
                                                     @if($order->status === "pending")
                                                         <span class="badge bg-warning">Pending</span>
-                                                    @elseif($order->status === "success")
+                                                    @elseif($order->status === "accepted")
                                                         <span class="badge bg-success">Success</span>
-                                                    @elseif($order->status === "canceled")
-                                                        <span class="badge bg-danger">Canceled</span>
+                                                    @elseif($order->status === "rejected")
+                                                        <span class="badge bg-danger">Failed</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $order->created_at->formatLocalized('%A, %d-%m-%Y') }}</td>

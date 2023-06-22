@@ -25,4 +25,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->quantity * $this->price;
+    }
 }

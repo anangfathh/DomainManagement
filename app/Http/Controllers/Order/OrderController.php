@@ -62,7 +62,7 @@ class OrderController extends Controller
         $userId = auth()->user()->id;
 
         // Mengambil seluruh Order yang memiliki user_id yang sama dengan Auth::id()
-        $orders = Order::where('user_id', $userId)->get();
+        $orders = Order::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
 
         return view('buyer.nota', ['orders' => $orders]);
     }
@@ -70,8 +70,26 @@ class OrderController extends Controller
     public function showPendingOrdersWithUserInfo()
     {
         // Mengambil seluruh Order yang memiliki status "pending"
-        $orders = Order::where('status', 'pending')->with('user')->get();
+        $orders = Order::with('user', 'orderItems.menu')->where('status', 'pending')->get();
 
         return view('employee.index', ['orders' => $orders]);
+    }
+
+    public function acceptOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'accepted';
+        $order->save();
+
+        return redirect()->route('orders.pending')->with('success', 'Order has been accepted.');
+    }
+
+    public function rejectOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'rejected';
+        $order->save();
+
+        return redirect()->route('orders.pending')->with('error', 'Order has been rejected.');
     }
 }
