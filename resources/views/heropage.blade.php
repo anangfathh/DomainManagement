@@ -46,7 +46,7 @@
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Rais Resto</h1>
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>SixResto</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -62,7 +62,7 @@
                 <div class="container my-5 py-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-dark animated slideInLeft">Selamat Datang di Rais Resto<br>Enjoy Your Food!!</h1>
+                            <h1 class="display-3 text-dark animated slideInLeft">Selamat Datang di Six Resto<br>Enjoy Your Food!!</h1>
                             <p class="text-dark animated slideInLeft mb-4 pb-2">Kalo kamu cari yang mahal dan enak aku mundur.Tapi, kalau kamu cari yang murah dan enak aku maju.</p>
                             <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Lets Order</a>
                         </div>
@@ -143,8 +143,8 @@
                     </div>
                     <div class="col-lg-6">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
-                        <h1 class="mb-4">Welcome to <i class="fa fa-utensils text-primary me-2"></i>Rais Restoran</h1>
-                        <p class="mb-4">Rais Resto adalah restoran yang menyediakan berbagai makanan yang anda butuhkan.</p>
+                        <h1 class="mb-4">Welcome to <i class="fa fa-utensils text-primary me-2"></i>Six Restoran</h1>
+                        <p class="mb-4">Six Resto adalah restoran yang menyediakan berbagai makanan yang anda butuhkan.</p>
                         <p class="mb-4">Menu yang tersedia disini ada berbagai macam dan bervaruasi dengan harga yang terjangkau.</p>
                         <div class="row g-4 mb-4">
                             <div class="col-sm-6">
@@ -540,7 +540,7 @@
                     </div>
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Makannya enak dan bervariasi,suka banget dengan Rais Resto </p>
+                        <p>Makannya enak dan bervariasi,suka banget dengan Six Resto </p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-2.jpg" style="width: 50px; height: 50px;">
                             <div class="ps-3">
@@ -562,7 +562,7 @@
                     </div>
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>The best resto in the world.Rais Resto five stars for you.</p>
+                        <p>The best resto in the world.Six Resto five stars for you.</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-4.jpg" style="width: 50px; height: 50px;">
                             <div class="ps-3">
