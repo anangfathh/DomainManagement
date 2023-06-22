@@ -24,7 +24,20 @@
                 <h4 class="card-title">Order List</h4>
             </div>
             <div class="card-body">
-                      <section class="section">
+                @if (session('error'))
+                    <div class="alert alert-light-danger color-danger"><i class="bi bi-exclamation-circle"></i>
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-light-success color-success alert-dismissible"><i class="bi bi-check-circle"></i>
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                    <section class="section">
                         <div class="card">
                             <div class="card-body">
                                 <table class="table" id="table1">
@@ -34,7 +47,7 @@
                                             <th>Status</th>
                                             <th>Name</th>
                                             <th>Price</th>
-                                            <th>Download</th>
+                                            <th>Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,7 +65,64 @@
                                                 </td>
                                                 <td>{{ $order->user->name }}</td>
                                                 <td>Rp{{ $order->total }}</td>
-                                                <td><button class="btn"><i class="bi bi-box-arrow-down"></i></button></td>
+                                                <td>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $order->id }}">
+                                                    <i class="bi bi-ticket-detailed-fill"></i>
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal{{ $order->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <span><h6>Order Id : {{ $order->id }}</h6></span>
+                                                            <span><h6>Nama Buyer : {{ $order->user->name }}</h6></span>
+                                                            <span><h6>Nomor HP : {{ $order->user->phone_number }}</h6></span>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-lg">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Menu</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Harga</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($order->orderItems as $orderItem)
+                                                                        <tr>
+                                                                            <td class="text-bold-500">{{ $orderItem->menu->name }}</td>
+                                                                            <td>{{ $orderItem->quantity }}</td>
+                                                                            <td class="text-bold-500"> {{ $orderItem->total_price }}</td>
+                                                                        </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                                <div class="container">
+                                                                    <h6 class="float-end me-5">Total : Rp{{ $order->total }}</h6>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('orders.reject', ['id' => $order->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-danger">Reject Order</button>
+                                                            </form>
+                                                            <form action="{{ route('orders.accept', ['id' => $order->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-success">Accept Order</button>
+                                                            </form>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

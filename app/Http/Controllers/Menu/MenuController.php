@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Menu;
 
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Menu;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -68,7 +69,7 @@ class MenuController extends Controller
     public function edit($id)
     {
         $menu = Menu::findOrFail($id);
-        return view('menu.edit', compact('menu'));
+        return view('employee.menu.edit', compact('menu'));
     }
 
     /**
@@ -78,24 +79,24 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        // Validate the input
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'category' => 'required',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate the input
+    //     $validatedData = $request->validate([
+    //         'name' => 'required',
+    //         'price' => 'required|numeric',
+    //         'category' => 'required',
+    //     ]);
 
-        // Find the menu
-        $menu = Menu::findOrFail($id);
-        $menu->name = $request->name;
-        $menu->price = $request->price;
-        $menu->category = $request->category;
-        $menu->save();
+    //     // Find the menu
+    //     $menu = Menu::findOrFail($id);
+    //     $menu->name = $request->name;
+    //     $menu->price = $request->price;
+    //     $menu->category = $request->category;
+    //     $menu->save();
 
-        return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
-    }
+    //     return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
+    // }
 
     /**
      * Remove the specified menu from storage.
@@ -115,5 +116,46 @@ class MenuController extends Controller
     {
         $menu = Menu::findOrFail($id);
         return view('employee.menu.show', compact('menu'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the input
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'category' => 'required',
+            'image' => 'image',
+        ]);
+
+        // Find the menu
+        $menu = Menu::findOrFail($id);
+
+        // Update the menu properties if the input is provided
+        if ($request->filled('name')) {
+            $menu->name = $request->name;
+        }
+        if ($request->filled('price')) {
+            $menu->price = $request->price;
+        }
+        if ($request->filled('category')) {
+            $menu->category = $request->category;
+        }
+
+        // Process the image if it's provided
+        if ($request->hasFile('image')) {
+            // Delete the old image if exists
+            if ($menu->image) {
+                Storage::delete($menu->image);
+            }
+
+            // Store the new image
+            $imagePath = $request->file('image')->store('menu_images');
+            $menu->image = $imagePath;
+        }
+
+        $menu->save();
+
+        return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
     }
 }

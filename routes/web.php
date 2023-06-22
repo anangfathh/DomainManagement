@@ -36,6 +36,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+Route::put('/orders/{id}/accept', [OrderController::class, 'acceptOrder'])->name('orders.accept');
+Route::put('/orders/{id}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
 
 
 Route::middleware(['auth'])->group(function () {

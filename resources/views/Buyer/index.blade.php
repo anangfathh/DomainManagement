@@ -6,7 +6,7 @@
         <div class="row justify-content-start mb-3">
             <!-- Category buttons and search input -->
             <div class="col-lg-12 col-md-12">
-                <h3>Category</h3>
+                <h3>List Menu</h3>
                 <div class="row">
                     <div class="col-9">
                         <button class="btn btn-outline-primary m-2" data-category="all">All</button>
