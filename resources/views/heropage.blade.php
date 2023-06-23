@@ -54,7 +54,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                    <a href="/login" class="btn btn-primary py-2 px-4">Login</a>
                 </div>
             </nav>
 
