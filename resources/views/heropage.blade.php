@@ -53,8 +53,16 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
+                    @if (Route::has('login'))
+                            @auth
+
+                            @else
+                            <div class="ms-auto">
+                                <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4">Login</a>
+                            </div>
+                            @endauth
+                    @endif
                     </div>
-                    <a href="/login" class="btn btn-primary py-2 px-4">Login</a>
                 </div>
             </nav>
 
@@ -64,7 +72,12 @@
                         <div class="col-lg-6 text-center text-lg-start">
                             <h1 class="display-3 text-dark animated slideInLeft">Selamat Datang di Six Resto<br>Enjoy Your Food!!</h1>
                             <p class="text-dark animated slideInLeft mb-4 pb-2">Kalo kamu cari yang mahal dan enak aku mundur.Tapi, kalau kamu cari yang murah dan enak aku maju.</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Lets Order</a>
+                            @if (Route::has('login'))
+                                @auth
+                                <a href="@if(Auth::user()->role === 'buyer' ){{ route('buyer.home') }} @else {{ route('orders.pending') }} @endif " class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Lets Order</a>
+                                @else
+                                @endauth
+                            @endif                     
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                             <img class="img-fluid" src="img/hero.png" alt="">

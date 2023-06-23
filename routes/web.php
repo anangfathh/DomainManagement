@@ -30,9 +30,7 @@ Route::get('/order_page', function () {
 Route::get('/nota_page', function () {
     return view('buyer.nota');
 });
-Route::get('/hero', function () {
-    return view('heropage');
-});
+
 
 Auth::routes();
 
