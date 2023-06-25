@@ -8,6 +8,8 @@ use App\Models\OrderItem;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class OrderController extends Controller
 {
@@ -38,6 +40,7 @@ class OrderController extends Controller
                 'menu_id' => $menu->id,
                 'quantity' => $quantity,
                 'price' => $menu->price,
+                'menu_name' => $menu->name,
             ]);
 
             $order->orderItems()->save($orderItem);
@@ -75,6 +78,14 @@ class OrderController extends Controller
         return view('employee.index', ['orders' => $orders]);
     }
 
+    public function showAcceptedOrdersWithUserInfo()
+    {
+        // Mengambil seluruh Order yang memiliki status "pending"
+        $orders = Order::with('user', 'orderItems.menu')->where('status', 'accepted')->get();
+
+        return view('employee.accepted', ['orders' => $orders]);
+    }
+
     public function acceptOrder($id)
     {
         $order = Order::findOrFail($id);
@@ -91,5 +102,38 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('orders.pending')->with('error', 'Order has been rejected.');
+    }
+
+    public function doneOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'done';
+        $order->save();
+
+        return redirect()->route('orders.accepted')->with('success', 'Order Telah Selesai di Proses.');
+    }
+
+    public function downloadNota($id)
+    {
+        $order = Order::with('user', 'orderItems.menu')->where('id', $id)->first();
+
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+
+        $dompdf = new Dompdf($options);
+
+        $pdfContent = view('buyer.data_pdf', compact('order'));
+
+        // Memasukkan konten ke Dompdf
+        $dompdf->loadHtml($pdfContent);
+
+        // Render konten menjadi file PDF
+        $dompdf->render();
+
+        // Menghasilkan nama file PDF
+        $fileName = 'NotaSixResto.pdf';
+
+        // Menyimpan file PDF ke server
+        $dompdf->stream($fileName, ['Attachment' => true]);
     }
 }

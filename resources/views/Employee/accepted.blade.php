@@ -57,7 +57,7 @@
                                                 <td>
                                                     @if($order->status === "pending")
                                                         <span class="badge bg-warning">Pending</span>
-                                                    @elseif($order->status === "success")
+                                                    @elseif($order->status === "accepted")
                                                         <span class="badge bg-success">Success</span>
                                                     @elseif($order->status === "canceled")
                                                         <span class="badge bg-danger">Canceled</span>
@@ -108,15 +108,10 @@
                                                                 </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form action="{{ route('orders.reject', ['id' => $order->id]) }}" method="POST">
+                                                            <form action="{{ route('orders.done', ['id' => $order->id]) }}" method="POST">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                <button type="submit" class="btn btn-danger">Reject Order</button>
-                                                            </form>
-                                                            <form action="{{ route('orders.accept', ['id' => $order->id]) }}" method="POST">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <button type="submit" class="btn btn-success">Accept Order</button>
+                                                                <button type="submit" class="btn btn-success">Done</button>
                                                             </form>
                                                         </div>
                                                         </div>

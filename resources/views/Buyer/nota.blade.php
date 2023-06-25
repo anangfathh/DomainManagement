@@ -39,6 +39,8 @@
                                                     @if($order->status === "pending")
                                                         <span class="badge bg-warning">Pending</span>
                                                     @elseif($order->status === "accepted")
+                                                        <span class="badge bg-info">Process</span>
+                                                    @elseif($order->status === "done")
                                                         <span class="badge bg-success">Success</span>
                                                     @elseif($order->status === "rejected")
                                                         <span class="badge bg-danger">Failed</span>
@@ -46,7 +48,7 @@
                                                 </td>
                                                 <td>{{ $order->created_at->formatLocalized('%A, %d-%m-%Y') }}</td>
                                                 <td>Rp{{ $order->total }}</td>
-                                                <td><button class="btn"><i class="bi bi-box-arrow-down"></i></button></td>
+                                                <td>@if($order->status === "done")<a class="btn" href="{{ route('nota.download', ['id' => $order->id]) }}"><i class="bi bi-box-arrow-down"></i></a>@else <span></span> @endif</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
