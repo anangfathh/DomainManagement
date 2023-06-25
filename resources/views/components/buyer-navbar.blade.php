@@ -3,7 +3,7 @@
                 <div class="header-top">
                     <div class="container">
                         <div class="logo">
-                            <a href="/order_page"><span class="resto-name">SixResto</span></a>
+                            <a href="{{ route('buyer.home') }}"><span class="resto-name">SixResto</span></a>
                         </div>
                         <div class="header-top-right">
 

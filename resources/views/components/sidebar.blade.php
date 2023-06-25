@@ -31,8 +31,16 @@
             <li
                 class="sidebar-item {{ request()->routeIs('menu.index') ? 'active' : '' }}">
                 <a href="{{ route('menu.index') }}" class='sidebar-link'>
-                    <i class="bi bi-grid-fill"></i>
-                    <span>Create Menu</span>
+                    <i class="bi bi-list-ul"></i>
+                    <span>List Menu</span>
+                </a>
+            </li>
+
+            <li
+                class="sidebar-item {{ request()->routeIs('orders.accepted') ? 'active' : '' }}">
+                <a href="{{ route('orders.accepted') }}" class='sidebar-link'>
+                    <i class="bi bi-check-square"></i>
+                    <span>Accepted Order</span>
                 </a>
             </li>
             

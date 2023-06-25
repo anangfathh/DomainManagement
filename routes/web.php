@@ -38,6 +38,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 Route::put('/orders/{id}/accept', [OrderController::class, 'acceptOrder'])->name('orders.accept');
 Route::put('/orders/{id}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
+Route::put('/orders/{id}/done', [OrderController::class, 'doneOrder'])->name('orders.done');
+Route::get('/nota/{id}/download-pdf', [OrderController::class, 'downloadNota'])->name('nota.download');;
 
 
 Route::middleware(['auth'])->group(function () {
@@ -47,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buyer_home', [HomeController::class, 'buyerHome'])->name('buyer.home');
     Route::get('/buyer/orders', [OrderController::class, 'showAllOrders'])->name('buyer.orders');
     Route::get('/pending-orders', [OrderController::class, 'showPendingOrdersWithUserInfo'])->name('orders.pending');
+    Route::get('/accepted-orders', [OrderController::class, 'showAcceptedOrdersWithUserInfo'])->name('orders.accepted');
 
 
 
