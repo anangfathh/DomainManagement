@@ -43,8 +43,8 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'image' => 'required|image',
-            'category' => 'required|max:5000',
+            'image' => 'required|image|max:5000',
+            'category' => 'required',
         ], [
             'required' => 'Semua atribut harus diisi.',
             'price.numeric' => 'Harga harus berupa angka.',
@@ -78,56 +78,10 @@ class MenuController extends Controller
         return view('employee.menu.edit', compact('menu'));
     }
 
-    /**
-     * Update the specified menu in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(Request $request, $id)
-    // {
-    //     // Validate the input
-    //     $validatedData = $request->validate([
-    //         'name' => 'required',
-    //         'price' => 'required|numeric',
-    //         'category' => 'required',
-    //     ]);
-
-    //     // Find the menu
-    //     $menu = Menu::findOrFail($id);
-    //     $menu->name = $request->name;
-    //     $menu->price = $request->price;
-    //     $menu->category = $request->category;
-    //     $menu->save();
-
-    //     return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
-    // }
-
-    /**
-     * Remove the specified menu from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $menu = Menu::findOrFail($id);
-        $menu->delete();
-
-        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully.');
-    }
-
-    public function show($id)
-    {
-        $menu = Menu::findOrFail($id);
-        return view('employee.menu.show', compact('menu'));
-    }
-
     public function update(Request $request, $id)
     {
         // Validate the input
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'category' => 'required',
@@ -163,5 +117,24 @@ class MenuController extends Controller
         $menu->save();
 
         return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
+    }
+    /**
+     * Remove the specified menu from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $menu = Menu::findOrFail($id);
+        $menu->delete();
+
+        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully.');
+    }
+
+    public function show($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('employee.menu.show', compact('menu'));
     }
 }
