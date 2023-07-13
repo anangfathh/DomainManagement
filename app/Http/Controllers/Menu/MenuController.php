@@ -44,21 +44,27 @@ class MenuController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'image' => 'required|image',
-            'category' => 'required',
+            'category' => 'required|max:5000',
+        ], [
+            'required' => 'Semua atribut harus diisi.',
+            'price.numeric' => 'Harga harus berupa angka.',
+            'image' => 'Data harus berupa gambar.',
+            'image.max' => 'Gambar yang dikirim terlalu besar.',
         ]);
 
         // Store the menu
         $menu = new Menu();
-        $menu->name = $request->name;
-        $menu->price = $request->price;
+        $menu->name = $validatedData['name'];
+        $menu->price = $validatedData['price'];
         // Store the image and get the image path
         $imagePath = $request->file('image')->store('menu_images');
         $menu->image = $imagePath;
-        $menu->category = $request->category;
+        $menu->category = $validatedData['category'];
         $menu->save();
 
         return redirect()->route('menu.index')->with('success', 'Menu created successfully.');
     }
+
 
     /**
      * Show the form for editing the specified menu.
