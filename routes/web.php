@@ -15,7 +15,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::middleware(['auth', 'is_buyer'])->group(function () {
+Route::middleware(['auth', 'can:IsBuyer'])->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::get('/nota/{id}/download-pdf', [OrderController::class, 'downloadNota'])->name('nota.download');;
     Route::get('/buyer_home', [HomeController::class, 'buyerHome'])->name('buyer.home');
@@ -23,7 +23,7 @@ Route::middleware(['auth', 'is_buyer'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'is_employee'])->group(function () {
+Route::middleware(['auth', 'can:IsEmployee'])->group(function () {
     // Menyediakan akses hanya untuk pengguna yang sudah terotentikasi
     Route::get('/employee_home', [HomeController::class, 'employeeHome'])->name('employee.home');
     Route::get('/pending-orders', [OrderController::class, 'showPendingOrdersWithUserInfo'])->name('orders.pending');

@@ -36,6 +36,7 @@
                 </a>
             </li>
 
+            @can('access-kitchen')
             <li
                 class="sidebar-item {{ request()->routeIs('orders.accepted') ? 'active' : '' }}">
                 <a href="{{ route('orders.accepted') }}" class='sidebar-link'>
@@ -43,6 +44,7 @@
                     <span>Accepted Order</span>
                 </a>
             </li>
+            @endcan
         </ul>
     </div>
     </div>

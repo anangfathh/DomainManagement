@@ -17,6 +17,7 @@ class MenuController extends Controller
      */
     public function index()
     {
+        $this->authorize('IsEmployee');
         $menus = Menu::all();
         return view('employee.menu.index', compact('menus'));
     }
@@ -39,6 +40,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('IsEmployee');
         // Validate the input
         $validatedData = $request->validate([
             'name' => 'required',
@@ -74,12 +76,14 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('IsEmployee');
         $menu = Menu::findOrFail($id);
         return view('employee.menu.edit', compact('menu'));
     }
 
     public function update(Request $request, $id)
     {
+        $this->authorize('IsEmployee');
         // Validate the input
         $request->validate([
             'name' => 'required',
