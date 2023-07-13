@@ -18,7 +18,7 @@ class isBuyer
         if (auth()->user()->role == 'buyer') {
             return $next($request);
         } else {
-            return redirect()->route('employee.home')->with('error', 'You have no buyer access');
+            return back();
         }
     }
 }

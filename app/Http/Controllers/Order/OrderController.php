@@ -62,6 +62,7 @@ class OrderController extends Controller
 
     public function showAllOrders()
     {
+        $this->authorize('IsBuyer');
         $userId = auth()->user()->id;
 
         // Mengambil seluruh Order yang memiliki user_id yang sama dengan Auth::id()
@@ -80,6 +81,7 @@ class OrderController extends Controller
 
     public function showAcceptedOrdersWithUserInfo()
     {
+        $this->authorize('access-kitchen');
         // Mengambil seluruh Order yang memiliki status "pending"
         $orders = Order::with('user', 'orderItems.menu')->where('status', 'accepted')->get();
 
@@ -106,6 +108,7 @@ class OrderController extends Controller
 
     public function doneOrder($id)
     {
+        $this->authorize('');
         $order = Order::findOrFail($id);
         $order->status = 'done';
         $order->save();
