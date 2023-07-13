@@ -7,16 +7,6 @@ use App\Http\Controllers\Menu\MenuController;
 use App\Http\Controllers\Order\OrderController;
 use App\Models\Order;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('heropage');
@@ -45,7 +35,6 @@ Route::get('/nota/{id}/download-pdf', [OrderController::class, 'downloadNota'])-
 
 Route::middleware(['auth'])->group(function () {
     // Menyediakan akses hanya untuk pengguna yang sudah terotentikasi
-
     Route::get('/employee_home', [HomeController::class, 'employeeHome'])->name('employee.home');
     Route::get('/buyer_home', [HomeController::class, 'buyerHome'])->name('buyer.home');
     Route::get('/buyer/orders', [OrderController::class, 'showAllOrders'])->name('buyer.orders');
