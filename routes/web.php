@@ -11,38 +11,26 @@ use App\Models\Order;
 Route::get('/', function () {
     return view('heropage');
 });
-Route::get('/test', function () {
-    return view('employee.index');
-});
-Route::get('/order_page', function () {
-    return view('buyer.index');
-});
-Route::get('/nota_page', function () {
-    return view('buyer.nota');
-});
-
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-Route::put('/orders/{id}/accept', [OrderController::class, 'acceptOrder'])->name('orders.accept');
-Route::put('/orders/{id}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
-Route::put('/orders/{id}/done', [OrderController::class, 'doneOrder'])->name('orders.done');
-Route::get('/nota/{id}/download-pdf', [OrderController::class, 'downloadNota'])->name('nota.download');;
-
-
-Route::middleware(['auth'])->group(function () {
-    // Menyediakan akses hanya untuk pengguna yang sudah terotentikasi
-    Route::get('/employee_home', [HomeController::class, 'employeeHome'])->name('employee.home');
+Route::middleware(['auth', 'is_buyer'])->group(function () {
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/nota/{id}/download-pdf', [OrderController::class, 'downloadNota'])->name('nota.download');;
     Route::get('/buyer_home', [HomeController::class, 'buyerHome'])->name('buyer.home');
     Route::get('/buyer/orders', [OrderController::class, 'showAllOrders'])->name('buyer.orders');
+});
+
+
+Route::middleware(['auth', 'is_employee'])->group(function () {
+    // Menyediakan akses hanya untuk pengguna yang sudah terotentikasi
+    Route::get('/employee_home', [HomeController::class, 'employeeHome'])->name('employee.home');
     Route::get('/pending-orders', [OrderController::class, 'showPendingOrdersWithUserInfo'])->name('orders.pending');
     Route::get('/accepted-orders', [OrderController::class, 'showAcceptedOrdersWithUserInfo'])->name('orders.accepted');
-
-
-
+    Route::put('/orders/{id}/accept', [OrderController::class, 'acceptOrder'])->name('orders.accept');
+    Route::put('/orders/{id}/reject', [OrderController::class, 'rejectOrder'])->name('orders.reject');
+    Route::put('/orders/{id}/done', [OrderController::class, 'doneOrder'])->name('orders.done');
     Route::prefix('menu')->group(function () {
         Route::get('/', [MenuController::class, 'index'])->name('menu.index');
         Route::get('/create', [MenuController::class, 'create'])->name('menu.create');
